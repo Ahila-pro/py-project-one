@@ -1,16 +1,12 @@
-# Alarm Clock
+# Number to Words
+A simple Python script to convert a number into its corresponding English words.
 
-## 🗒️ Description
-The provided script is a simple alarm clock that asks the user to input a time in the 'HH
-' format. It continuously checks the current time and prints "Time to wake up!" when the specified time is reached.
+## Description
+This script converts a given number into words. For example, the input 123 will be converted to "One Two Three".
 
 ## Required Modules
-The script requires the following Python standard library modules:
-
-   'datetime'
-    'time'
-
-Since these are part of Python's standard library, you don't need to install any additional modules.
+• Python 3.x
+This script uses only the standard library, so no additional installations are necessary.
 
 ## ▶️ How to Run the Script
 1. Clone the Repository:
@@ -19,10 +15,13 @@ Since these are part of Python's standard library, you don't need to install any
    ```
 2. Navigate to Directory:
    ```bash 
-            cd Simple-Python-Mini-Projects/Alarm\ Clock
+          cd Simple-Python-Mini-Projects/Number\ to\ Words
    ```
-2. Run the Script:
+3. Run the Script:
    ```bash 
-           python alarm_clock.py
+       python number_to_words.py
    ```
-- Set an alarm with a specific time, and the script will alert you when the time is reached.
+
+4. Follow the Prompt:
+
+Enter a number when prompted, and the script will output the number in words.
