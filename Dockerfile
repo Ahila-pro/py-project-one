@@ -1,17 +1,27 @@
-# Use official Python runtime
 FROM python:3.10-slim
 
-# Set working directory inside container
 WORKDIR /app
 
-# Copy requirements (even if empty)
+# Copy your code
+COPY app.py .
 COPY requirements.txt .
 
-# Install dependencies (none for now)
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Flask
+RUN pip install -r requirements.txt
 
-# Copy project files
-COPY . .
+EXPOSE 5000
 
-# Run the alarm script
-CMD ["python", "simple.py"]
+CMD ["python", "app.py"]
+
+# To build and run the Docker container, use the following commands:
+
+
+# Build the image
+#docker build -t numbertowrord .
+
+# Run interactively
+# docker run -it numbertoword
+
+# docker tag numbertoword ahilashoba/numbertoword:latest
+# docker push ahilashoba/numbertoword:latest
+
