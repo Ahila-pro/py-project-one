@@ -24,6 +24,7 @@ This script uses only the standard library, so no additional installations are n
 
 4. Follow the Prompt: 
 
+
 Enter a number when prompted, and the script will output the number in words.
 ---------------------
 # LAB STEPS:
