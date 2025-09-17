@@ -1,0 +1,37 @@
+name: Build and Deploy to Azure Container App
+
+on:
+  push:
+    branches:
+      - main   # Change if your default branch is different
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Log in to ACR
+      run: |
+        az acr login --name pythonahiregistry
+
+    - name: Build and Push Docker Image
+      run: |
+        IMAGE_NAME=numbertowords
+        ACR_NAME=pythonahiregistry
+        docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:latest .
+        docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:latest
+
+    - name: Deploy to Azure Container Apps
+      run: |
+        az containerapp update \
+          --name numbertowords-app \
+          --resource-group python-rgp \
+          --image pythonahiregistry.azurecr.io/numbertowords:latest
