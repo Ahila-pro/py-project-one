@@ -22,7 +22,7 @@ This script uses only the standard library, so no additional installations are n
        python number_to_words.py
    ```
 
-4. Follow the Prompt:
+4. Follow the Prompt: 
 
 Enter a number when prompted, and the script will output the number in words.
 ---------------------
