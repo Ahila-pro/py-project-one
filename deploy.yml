@@ -1,38 +1,20 @@
-name: Build and Deploy to Azure Container App
+name: Python package
 
-on:
-  push:
-    branches:
-      - main   # Change if your default branch is different
+on: [push]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["pypy3.10", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-
-    - name: Log in to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        allow-no-subscriptions: false
-
-    - name: Log in to ACR
-      run: |
-        az acr login --name pythonahiregistry
-
-    - name: Build and Push Docker Image
-      run: |
-        IMAGE_NAME=numbertowords
-        ACR_NAME=pythonahiregistry
-        docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:latest .
-        docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:latest
-
-    - name: Deploy to Azure Container Apps
-      run: |
-        az containerapp update \
-          --name numbertowords-app \
-          --resource-group python-rgp \
-          --image pythonahiregistry.azurecr.io/numbertowords:latest
+      - uses: actions/checkout@v5
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      # You can test your matrix by printing the current Python version
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
