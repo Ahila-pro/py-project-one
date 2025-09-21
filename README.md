@@ -37,6 +37,7 @@ Enter a number when prompted, and the script will output the number in words.
 7. create container registry in portal
 
 
+
 # Container app needs container environment
 8. az containerapp env create --name myContainerEnvtwo --resource-group python-rgp --location SouthIndia
 # Authentication ACR
