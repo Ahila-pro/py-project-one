@@ -60,7 +60,6 @@ Enter a number when prompted, and the script will output the number in words.
 
 15. az containerapp create --name numbertoword-app --resource-group python-rgp --environment myContainerEnvtwo --image pythonahiregistry.azurecr.io/numbertoword:latest --target-port 5000 --ingress external --registry-server pythonahiregistry.azurecr.io --registry-username pythonahiregistry --registry-password 34tlVzfA9Ay
 
-
 # ---------------------------
 Simple Az login workflow commands
 # create application for service principal
