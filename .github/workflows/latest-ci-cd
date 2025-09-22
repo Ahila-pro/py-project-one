@@ -47,7 +47,7 @@ jobs:
           || az containerapp create \
             --name ${{ secrets.CONTAINERAPP_NAME }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --environment ${{ secrets.CONTAINERAPPS_ENVIRONMENT }} \
+            --environment ${{ secrets.CONTAINERAPP_ENV }} \
             --image $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG \
             --target-port 5000 \   # 👈 fixed port here
             --ingress external \
