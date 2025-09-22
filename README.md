@@ -38,8 +38,6 @@ Enter a number when prompted, and the script will output the number in words.
 6. Check in browser
 7. create container registry in portal
 
-
-
 # Container app needs container environment
 8. az containerapp env create --name myContainerEnvtwo --resource-group python-rgp --location SouthIndia
 # Authentication ACR
@@ -64,6 +62,19 @@ Enter a number when prompted, and the script will output the number in words.
 Simple Az login workflow commands
 # create application for service principal
 1. az ad sp create-for-rbac --name "my-github-sp" --sdk-auth
+# copy this into git secretes as   
+{
+  "clientId": <cliid>,
+  "clientSecret": <clisec>,
+  "subscriptionId": <subscription id>,
+  "tenantId": <tenant id>,
+  "activeDirectoryEndpointUrl": "",
+  "resourceManagerEndpointUrl": "",
+  "activeDirectoryGraphResourceId": ":",
+  "sqlManagementEndpointUrl": "",
+  "galleryEndpointUrl": "",
+  "managementEndpointUrl": ""
+}
 # Assign role assignment to this service principal at subscription level
 2. az role assignment create --assignee <appId-of-your-SP>  --role Contributor --subscription <your-subscription-id>
 
