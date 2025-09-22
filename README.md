@@ -68,9 +68,9 @@ Simple Az login workflow commands
 # Assign role assignment to this service principal at subscription level
 2. az role assignment create --assignee <appId-of-your-SP>  --role Contributor --subscription <your-subscription-id>
 
-az role assignment create --assignee 3e1330f1-cabe-448e-b2d8-6d299428bd5a --role Contributor --scope /subscriptions/8ca97cad-9ab1-42a2-9d9e-bdbf8876c147
+az role assignment create --assignee 3e1330f1 --role Contributor --scope /subscriptions/8ca97cad
 
-az role assignment create --assignee 3e1330f1-cabe-448e-b2d8-6d299428bd5a --role Contributor  --scope /subscriptions/8ca97cad-9ab1-42a2-9d9e-bdbf8876c147
+az role assignment create --assignee 3e1330f1 --role Contributor  --scope /subscriptions/8ca97cad
 
 
 3 . check in azure portal -> entra id -> iam -> select user and check application mapped with user.
