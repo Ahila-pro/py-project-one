@@ -57,7 +57,9 @@ Enter a number when prompted, and the script will output the number in words.
 13.  az containerapp env list --resource-group python-rgp --output table
 # Take pw from step 14.
 14. az acr credential show -n pythonahiregistry --resource-group python-rgp
-15. az containerapp create --name numbertoword-app --resource-group python-rgp --environment myContainerEnvtwo --image pythonahiregistry.azurecr.io/numbertoword:latest --target-port 5000 --ingress external --registry-server pythonahiregistry.azurecr.io --registry-username pythonahiregistry --registry-password 4T4ync4cmbDqX1B
+
+15. az containerapp create --name numbertoword-app --resource-group python-rgp --environment myContainerEnvtwo --image pythonahiregistry.azurecr.io/numbertoword:latest --target-port 5000 --ingress external --registry-server pythonahiregistry.azurecr.io --registry-username pythonahiregistry --registry-password 34tlVzfA9Ay
+
 
 # ---------------------------
 Simple Az login workflow commands
