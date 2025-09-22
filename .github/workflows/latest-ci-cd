@@ -1,0 +1,68 @@
+name: Build, push to ACR and deploy to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: numbertoword
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Azure using Service Principal (AZURE_CREDENTIALS)
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set image variables
+        run: |
+          IMAGE_TAG=${GITHUB_SHA::8}
+          ACR_LOGIN_SERVER=${{ secrets.ACR_NAME }}.azurecr.io
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER" >> $GITHUB_ENV
+          echo "IMAGE_FULL=$ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: Ensure az CLI works
+        run: az account show
+
+      - name: Log in to ACR (so docker push will work)
+        run: az acr login --name ${{ secrets.ACR_NAME }}
+
+      - name: Build and push Docker image to ACR
+        run: |
+          docker build -t $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG .
+          docker push $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG
+
+      - name: Create Container App if it doesn't exist
+        run: |
+          az containerapp show \
+            --name ${{ secrets.CONTAINERAPP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+          || az containerapp create \
+            --name ${{ secrets.CONTAINERAPP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --environment ${{ secrets.CONTAINERAPPS_ENVIRONMENT }} \
+            --image $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG \
+            --target-port 5000 \   # 👈 fixed port here
+            --ingress external \
+            --registry-server $ACR_LOGIN_SERVER
+
+      - name: Update Container App with new image
+        run: |
+          az containerapp update \
+            --name ${{ secrets.CONTAINERAPP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --image $ACR_LOGIN_SERVER/${{ env.IMAGE_NAME }}:$IMAGE_TAG
+
+      - name: Show deployed app URL
+        run: |
+          az containerapp show \
+            --name ${{ secrets.CONTAINERAPP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --query properties.configuration.ingress.fqdn -o tsv
