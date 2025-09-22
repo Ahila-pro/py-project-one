@@ -59,3 +59,12 @@ Enter a number when prompted, and the script will output the number in words.
 14. az acr credential show -n pythonahiregistry --resource-group python-rgp
 15. az containerapp create --name numbertoword-app --resource-group python-rgp --environment myContainerEnvtwo --image pythonahiregistry.azurecr.io/numbertoword:latest --target-port 5000 --ingress external --registry-server pythonahiregistry.azurecr.io --registry-username pythonahiregistry --registry-password 4T4ync4cmbDqX1B
 
+# ---------------------------
+Simple Az login workflow commands
+# create application for service principal
+1. az ad sp create-for-rbac --name "my-github-sp" --sdk-auth
+# Assign role assignment to this service principal at subscription level
+2. az role assignment create --assignee <appId-of-your-SP>  --role Contributor --subscription <your-subscription-id>
+
+
+
