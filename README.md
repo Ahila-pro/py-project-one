@@ -52,7 +52,7 @@ Enter a number when prompted, and the script will output the number in words.
 14. docker tag numbertoword pythonahiregistry.azurecr.io/numbertoword:latest
 15. az acr list  --resource-group python-rgp --output table
 # Container App Creation:
-13.  az containerapp env list --resource-group python-rgp --output table
+#  az containerapp env list --resource-group python-rgp --output table
 # Take pw from step 14.
 14. az acr credential show -n pythonahiregistry --resource-group python-grp
 
@@ -78,9 +78,9 @@ Simple Az login workflow commands
 # Assign role assignment to this service principal at subscription level
 2. az role assignment create --assignee <appId-of-your-SP>  --role Contributor --subscription <your-subscription-id>
 
-az role assignment create --assignee 3e1330f1 --role Contributor --scope /subscriptions/8ca97cad
+az role assignment create --assignee <subscription id>, --role Contributor --scope /subscriptions/<subscription id>,
 
-az role assignment create --assignee 3e1330f1 --role Contributor  --scope /subscriptions/8ca97cad
+az role assignment create --assignee <subscription id>, --role Contributor  --scope /subscriptions/<subscription id>,
 
 
 3 . check in azure portal -> entra id -> iam -> select user and check application mapped with user.
